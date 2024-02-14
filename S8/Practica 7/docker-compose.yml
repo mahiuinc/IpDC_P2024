@@ -9,6 +9,7 @@ services:
       - ./nginx/nginx.config:/etc/nginx/conf.d/default.conf:ro
     networks:
       - web_network
+
   api-server:
     build:
       context: ./api-server
@@ -18,12 +19,11 @@ services:
     networks:
       - app_network
     volumes:
-      - ./api-server:/usr/app
-    command: npm run dev
-    depends_on:
-      - redis
-      - database
-      - client
+    #bind-mount con el directorio api-server
+      - ./api-server:/app
+    # la referencia de node_modules en el contenedor será mi directorio node_modules local. Esto para poder debugear
+    # Ojo, si lo quitamos el contenedor termina la ejecución al crearse
+      - api-server_node_modules:/app/node_modules
     environment:
       - DB_HOST=${DB_HOST}
       - DB_PORT=${DB_PORT}
@@ -34,6 +34,7 @@ services:
       - REDIS_HOST=${REDIS_HOST}
       - REDIS_PORT=${REDIS_PORT}
       - DATABASE_URL=${DATABASE_URL}
+
   redis:
     image: redis:latest
     networks:
@@ -41,6 +42,7 @@ services:
     volumes:
       - redis_data:/data
     command: redis-server --save 20 1 --loglevel warning
+  
   database:
     build:
       context: ./db
@@ -57,6 +59,7 @@ services:
       - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
       - MYSQL_PASSWORD=${DB_PASSWORD}
       - MYSQL_DATABASE=${DB_DATABASE}
+
   client:
     build:
       context: ./client
@@ -66,6 +69,8 @@ services:
       - app_network
     volumes:
       - ./client:/app
+      # OJO: de esta manera se descarga node_modules, si lo quitamos ya no la descarga
+      - client_node_modules:/app/node_modules
     environment:
       - NODE_ENV=development
 
@@ -73,6 +78,8 @@ services:
 volumes:
   db_data:
   redis_data:
+  api-server_node_modules:
+  client_node_modules:
 
 networks:
   web_network:

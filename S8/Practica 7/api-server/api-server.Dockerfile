@@ -14,4 +14,5 @@ RUN npm install
 COPY . /app/
 
 # Comando para ejecutar la aplicación al iniciar el contenedor
-CMD ["npm", "start"]
+CMD ["npm", "run", "dev"]
+#CMD ["npm", "start"]

@@ -1,0 +1,76 @@
+version: "3"
+
+services:
+  nginx:
+    image: nginx:1.25
+    ports:
+      - '8080:80'
+    volumes:
+      - ./nginx.config:/etc/nginx/conf.d/default.conf:ro
+    networks:
+      - web_network
+  
+  client:
+    build:
+      context: client
+      dockerfile: Dockerfile
+    # volumes:
+    #   - ./client:/app
+    ports:
+      - '3000:3000'
+    networks:
+      - web_network
+      - app_network
+    environment:
+      - NODE_ENV=development
+  
+  api-server:
+    build:
+      context: api-server
+      dockerfile: Dockerfile
+    networks:
+      - app_network
+    ports:
+      - '5001:5001'
+    # volumes:
+    #   - ./api-server:/app
+    environment:
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_DATABASE=${DB_DATABASE}
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+      - REDIS_HOST=${REDIS_HOST}
+      - REDIS_PORT=${REDIS_PORT}
+
+  redis:
+    image: redis:7
+    networks:
+      - app_network
+    command: ["redis-server", "--save 20 1", "--loglevel warning"]
+
+  db:
+    build:
+      context: db
+      dockerfile: Dockerfile
+    volumes:
+      - db-data:/var/lib/mysql
+      - ./db/init_db.sql:/docker-entrypoint-initdb.d/init.sql
+    environment:
+      - MYSQL_DATABASE=${DB_DATABASE}
+      - MYSQL_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
+      - MYSQL_ROOT_HOST=${DB_HOST}
+      - MYSQL_USER=${DB_USER}
+      - MYSQL_PASSWORD=${DB_PASSWORD}
+    networks:
+      - app_network
+    
+networks:
+  web_network:
+    driver: bridge
+  app_network:
+    driver: bridge
+
+volumes:
+  db-data:
