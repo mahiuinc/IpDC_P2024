@@ -17,7 +17,6 @@ pipeline {
                 steps {
                     dir("Sesion_11/Practica 10") {
                         sh "pwd"
-                        sh "ls"
                         sh 'docker-compose up -d --build'
                     }
                 }
