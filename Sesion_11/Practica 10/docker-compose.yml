@@ -51,11 +51,11 @@ services: # se especifican los servicios de la solución
       context: ./db #Contexto/directorio donde está el dockerfile para la construcción de la imagen
       dockerfile: Dockerfile #nombre del dockerfile para crear la imagen
     volumes: 
-      - ./db/init_db.sql:/data/application/init_db.sql
+      - init_scripts:/init_scripts
       - db_data:/var/lib/mysql
     networks: # red(es) a la(s) que pertenecerá el contenedor
       - app_network
-    command: --init-file /data/application/init_db.sql #comando que se correran una vez el contenedor esté corriendo
+    command: --init-file /init_scripts/init_db.sql
     environment: # variables de entorno, utilizadas para la configuración del contenedor
       - MYSQL_ROOT_HOST=${DB_HOST}
       - MYSQL_USER=${DB_USER}
