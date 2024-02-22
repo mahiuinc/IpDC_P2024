@@ -4,9 +4,8 @@
   "description": "This is a simple crud api server. Here also caching mechanism implemented",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "node",
     "dev": "nodemon",
-    "comentario": "nodemon && concatenar cosas",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Shrikanta Mazumder",
@@ -17,7 +16,7 @@
     "dotenv": "^16.1.4",
     "express": "^4.18.2",
     "mysql2": "^3.3.3",
-    "nodemon": "^3.0.3",
+    "nodemon": "^2.0.22",
     "redis": "^4.6.7"
   }
 }
