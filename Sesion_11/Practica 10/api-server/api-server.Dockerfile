@@ -1,11 +1,11 @@
 FROM node:14
 
 WORKDIR /app
-COPY package*.json ./
+COPY package.json package-lock.json /app/
 
 RUN npm install
 
-COPY . .
+COPY . /app/
 EXPOSE 5001
 
 CMD [ "npm", "run", "dev" ]

@@ -5,7 +5,9 @@ services:
   api-server:
     container_name: "api-server"
     restart: always
-    build: ./api-server/.
+    build:
+      context: ./api-server
+      dockerfile: api-server.Dockerfile
     environment:
       - DB_HOST=${DB_HOST}
       - DB_PORT=${DB_PORT}
@@ -24,7 +26,6 @@ services:
       - app_network
 #--------Redis -----
   redis:
-    container_name: "redis-service"
     image: redis:alpine
     restart: always
     command: redis-server --save 20 1 --loglevel warning --requirepass ${REDIS_PASSWORD}
@@ -35,20 +36,41 @@ services:
 #--------DB -----
   db:
     container_name: "database"
-    build: ./db/
+    build:
+      context: ./db
+      dockerfile: Dockerfile
     restart: always
     environment:
-      MYSQL_DATABASE: "${DB_DATABASE}"
-      MYSQL_ROOT_PASSWORD: "${DB_ROOT_PASSWORD}"
-      MYSQL_ROOT_HOST: "%"
-      MYSQL_USER: "${DB_USER}"
-      MYSQL_PASSWORD: "${DB_PASSWORD}"
+      - MYSQL_ROOT_HOST=${DB_HOST}
+      - MYSQL_USER=${DB_USER}
+      - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
+      - MYSQL_PASSWORD=${DB_PASSWORD}
+      - MYSQL_DATABASE=${DB_DATABASE}
     command: --init-file /init_scripts/init_db.sql
     volumes:
       - db_data:/var/lib/mysql
       - init_scripts:/init_scripts
     networks:
       - app_network
+#--------client -----
+  client:
+    build:
+      context: ./client #Contexto/directorio donde está el dockerfile para la construcción de la imagen
+      dockerfile: Dockerfile #nombre del dockerfile para crear la imagen
+    networks: # red(es) a la(s) que pertenecerá el contenedor
+      - web_network
+      - app_network
+    environment: # variables de entorno, utilizadas para la configuración del contenedor
+      - NODE_ENV=development
+#--------nginx -----
+  nginx:
+    build:
+      context: ./nginx #Contexto/directorio donde está el dockerfile para la construcción de la imagen
+      dockerfile: Dockerfile
+    ports: #Puertos externo que se utilizará para el contenedor
+      - '8080:80'
+    networks: # red(es) a la(s) que pertenecerá el contenedor
+      - web_network
 #-------------
 volumes:
   db_data:
