@@ -26,6 +26,7 @@ services:
       - app_network
 #--------Redis -----
   redis:
+    container_name: "redis"
     image: redis:alpine
     restart: always
     command: redis-server --save 20 1 --loglevel warning --requirepass ${REDIS_PASSWORD}
@@ -54,6 +55,7 @@ services:
       - app_network
 #--------client -----
   client:
+    container_name: "client"
     build:
       context: ./client #Contexto/directorio donde está el dockerfile para la construcción de la imagen
       dockerfile: Dockerfile #nombre del dockerfile para crear la imagen
@@ -64,6 +66,7 @@ services:
       - NODE_ENV=development
 #--------nginx -----
   nginx:
+    container_name: "proxy"
     build:
       context: ./nginx #Contexto/directorio donde está el dockerfile para la construcción de la imagen
       dockerfile: Dockerfile
