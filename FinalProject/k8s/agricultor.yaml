@@ -1,0 +1,78 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      role: mongo
+  template:
+    metadata:
+      labels:
+        role: mongo
+    spec:
+      containers:
+      - name: mongo
+        image: mongo:4.2.0
+        env:
+          - name: MONGO_INITDB_ROOT_USERNAME
+            value: "miguel"
+          - name: MONGO_INITDB_ROOT_PASSWORD
+            value: "pass"
+        ports:
+        - containerPort: 27017
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongo
+spec:
+  ports:
+  - port: 27017
+    targetPort: 27017
+  selector:
+    role: mongo
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: agricultor
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      role: agricultor
+  template:
+    metadata:
+      labels:
+        role: agricultor
+    spec:
+      containers:
+      - name: agricultor
+        image: miguelhidalgou/agricultor-server
+        env:
+          - name: CLAVE_PRIVADA
+            value: "MIGUELELREY"
+          - name: PORT
+            value: "10000"
+          - name: MONGO_URL
+            value: "mongodb://miguel:pass@mongo:27017/"
+        ports:
+        - containerPort: 10000
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: agricultor
+spec:
+  type: NodePort
+  ports:
+  - port: 10000
+    targetPort: 10000
+    nodePort: 30000
+  selector:
+    role: agricultor

@@ -1,0 +1,48 @@
+# Proyecto Final
+#
+#
+# Miguel Hidalgo
+#
+#
+#
+
+version: '3'
+
+services:
+  mongo:
+    container_name: mongodb
+    image: mongo:4.2.0
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_ROOT_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_PASSWORD}
+    ports: 
+      - '11000:27017'
+    volumes:
+      - db_data:/data/db
+      - db_data1:/data/configdb
+    networks:
+      - farm_network
+
+  agricultorserver:
+    build:
+      context: ./ndAgricultor
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - '${EXTERNAL_PORT}:${INTERNAL_PORT}'
+    environment:
+      - CLAVE_PRIVADA=${CLAVE_PRIVADA}
+      - MONGO_URL=mongodb://${MONGO_ROOT_USERNAME}:${MONGO_PASSWORD}@mongo
+      - PORT=${INTERNAL_PORT}
+    links:
+      - mongo
+    networks:
+      - farm_network
+ 
+volumes: # Declaración de volumenes
+  db_data:
+  db_data1:
+
+networks: # Creación de nuevas redes
+  farm_network:
+    driver: bridge

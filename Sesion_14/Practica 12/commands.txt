@@ -1,0 +1,29 @@
+# Práctica 12
+# Miguel Abraham Hidalgo Ureña
+# https://dev.to/joeyb908/docker-swarm-installing-a-5-tier-web-app-1l5e
+
+# Overlay networks *
+docker network create -d overlay FrontEnd
+docker network create -d overlay BackEnd
+
+# vote-app *
+# --publish published=80,target=80
+docker service create --name vote-app -p 80:80 --network FrontEnd --replicas 2 bretfisher/examplevotingapp_vote    
+
+# redis *
+docker service create --name redis --network FrontEnd --replicas 1 redis:3.2
+
+# worker *
+docker service create --name worker --network FrontEnd --network BackEnd --replicas 1 bretfisher/examplevotingapp_worker
+
+# db *
+##secret file
+printf "mahu" | docker secret create db_pass -               
+printf "mahu"
+
+docker service create --name db --network BackEnd --secret db_pass \
+    -e POSTGRES_PASSWORD_FILE=/run/secrets/db_pass -e POSTGRES_HOST_AUTH_METHOD=trust \
+    --mount type=volume,source=db-data,target=/var/lib/postgresql/data postgres:9.4
+
+# result
+docker service create --name result --network BackEnd --replicas 1 -p 5005:80 bretfisher/examplevotingapp_result

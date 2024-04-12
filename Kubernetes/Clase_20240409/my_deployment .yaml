@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: httpenv
+  name: httpenv-deployment
+spec:
+  selector:
+    matchLabels:
+      app: httpenv
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: httpenv
+    spec:
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      containers:
+      - name: httpenv
+        image: bretfisher/httpenv
+        ports:
+        - containerPort: 80
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"

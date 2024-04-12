@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: httpenv-service
+spec:
+  type: ClusterIP
+  ports:
+  - port: 8888
+    protocol: TCP
+    targetPort: 8888
+  selector:
+    app: httpenv
+# kubectl run tmp-shell --rm -i --tty --image bretfisher/netshoot -- bash

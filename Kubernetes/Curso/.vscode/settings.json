@@ -1,0 +1,5 @@
+{
+    "yaml.schemas": {
+        "kubernetes://schema/apps/v1%40deployment": "file:///Users/miguelhidalgo/GitHub/GIT-INFRAESTRUCTURA_DESARROLLO_CONTINUO/IpDC_P2024/Kubernetes/Curso/09-hello-deployment-svc-loadBalancer.yaml"
+    }
+}
