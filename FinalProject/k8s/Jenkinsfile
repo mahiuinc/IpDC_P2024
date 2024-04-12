@@ -15,7 +15,7 @@ pipeline {
 
             stage('Build') {
                 steps {
-                    dir("FinalProject") {
+                    dir("FinalProject/k8s") {
                         sh "pwd"
                         sh "ls"
                         sh 'kubectl apply -f ./k8s/agricultor.yaml'
