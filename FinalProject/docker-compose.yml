@@ -24,9 +24,8 @@ services:
       - farm_network
 
   agricultorserver:
-    build:
-      context: ./ndAgricultor
-      dockerfile: Dockerfile
+    container_name: agricultorserver
+    image: miguelhidalgou/agricultor-server
     restart: always
     ports:
       - '${EXTERNAL_PORT}:${INTERNAL_PORT}'
