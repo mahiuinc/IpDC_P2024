@@ -25,7 +25,7 @@ services:
 
   agricultorserver:
     container_name: agricultorserver
-    image: miguelhidalgou/agricultor-server
+    image: miguelhidalgou/agricultor-server:1
     restart: always
     ports:
       - '${EXTERNAL_PORT}:${INTERNAL_PORT}'
