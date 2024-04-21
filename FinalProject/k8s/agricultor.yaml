@@ -52,7 +52,7 @@ spec:
     spec:
       containers:
       - name: agricultor
-        image: miguelhidalgou/agricultor-server
+        image: miguelhidalgou/agricultor-server:1
         env:
           - name: CLAVE_PRIVADA
             value: "MIGUELELREY"
