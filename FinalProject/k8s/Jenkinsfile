@@ -18,7 +18,7 @@ pipeline {
                     dir("FinalProject/k8s") {
                         sh "pwd"
                         sh "ls"
-                        sh 'kubectl apply -f ./agricultor.yaml'
+                        sh 'kubectl apply -f ./agricultor.yaml --validate=false'
                     }
                 }
             }
