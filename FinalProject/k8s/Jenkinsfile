@@ -12,15 +12,15 @@ pipeline {
                     input('Do you want to proceed?')
                 }
             }
-
-            stage('Build') {
-                steps {
-                    dir("FinalProject/k8s") {
-                        sh "pwd"
-                        sh "ls"
-                        sh 'kubectl apply -f ./agricultor.yaml --validate=false'
+            
+        stage('Deploying React.js container to Kubernetes') {
+            steps {
+                dir("FinalProject/k8s") {
+                    script {
+                    kubernetesDeploy(configs: "agricultor.yaml")
                     }
                 }
             }
+        }
         }
 }
