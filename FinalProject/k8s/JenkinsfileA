@@ -1,0 +1,17 @@
+pipeline {
+  agent any
+  stages {
+    stage('Checkout Source') {
+      steps {
+        git 'https://mahiuinc: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@github.com/mahiuinc/IpDC_P2024/FinalProject/k8s'
+      }
+    }
+    stage('Deploying React.js container to Kubernetes') {
+      steps {
+        script {
+          kubernetesDeploy(configs: "agricultor.yaml")
+        }
+      }
+    }
+  }
+}
