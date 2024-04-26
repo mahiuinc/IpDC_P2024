@@ -1,26 +1,17 @@
 pipeline {
-    agent any
-        stages {
-            stage ('Greeting') {
-                steps {
-                    echo 'We are starting this build !!'
-                }
-            }
-
-            stage ('Confirmation'){
-                steps {
-                    input('Do you want to proceed?')
-                }
-            }
-
-            stage('Build') {
-                steps {
-                    dir("FinalProject/k8s") {
-                        sh "pwd"
-                        sh "ls"
-                        sh 'kubectl apply -f ./agricultor.yaml --validate=false'
-                    }
-                }
-            }
+  agent any
+  stages {
+    stage('Checkout Source') {
+      steps {
+        git 'https://github.com/mahiuinc/IpDC_P2024/FinalProject/k8s'
+      }
+    }
+    stage('Deploying React.js container to Kubernetes') {
+      steps {
+        script {
+          kubernetesDeploy(configs: "agricultor.yaml")
         }
+      }
+    }
+  }
 }
