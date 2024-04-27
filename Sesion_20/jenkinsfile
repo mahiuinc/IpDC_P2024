@@ -10,26 +10,7 @@ pipeline {
         git 'https://github.com/mahiuinc/IpDC_P2024.git/Sesion_20'
       }
     }
-    stage('Build image') {
-      steps{
-        script {
-          dockerImage = docker.build dockerimagename
-        }
-      }
-    }
-    stage('Pushing Image') {
-      environment {
-          registryCredential = 'dockerhub-credentials'
-           }
-      steps{
-        script {
-          docker.withRegistry( 'https://registry.hub.docker.com', registryCredential ) {
-            dockerImage.push("latest")
-          }
-        }
-      }
-    }
-    stage('Deploying React.js container to Kubernetes') {
+    stage('Deploying nginx service to Kubernetes') {
       steps {
         script {
           kubernetesDeploy(configs: "service.yaml")
