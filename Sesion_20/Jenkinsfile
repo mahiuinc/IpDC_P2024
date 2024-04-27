@@ -1,17 +1,12 @@
 pipeline {
-  agent any
-  stages {
-    stage('Checkout Source') {
-      steps {
-        git 'https://github.com/mahiuinc/IpDC_P2024.git/Sesion_20'
-      }
-    }
-    stage('Deploying nginx service with Kubernetes') {
-      steps {
-        script {
-          kubernetesDeploy(configs: "service.yaml")
-        }
-      }
+    agent any
+        stages {
+          stage('Deploying nginx service with Kubernetes') {
+            steps {
+              script {
+                kubernetesDeploy(configs: "service.yaml")
+              }
+            }
     }
   }
 }
