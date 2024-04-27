@@ -10,7 +10,7 @@ pipeline {
         git 'https://github.com/mahiuinc/IpDC_P2024.git/Sesion_20'
       }
     }
-    stage('Deploying nginx service to Kubernetes') {
+    stage('Deploying nginx service with Kubernetes') {
       steps {
         script {
           kubernetesDeploy(configs: "service.yaml")
