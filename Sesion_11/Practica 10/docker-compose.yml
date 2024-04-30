@@ -24,7 +24,7 @@ services:
       - 5001:5001
     networks:
       - app_network
-#--------Redis -----
+#--------Redis ------
   redis:
     container_name: "redis"
     image: redis:alpine
