@@ -1,0 +1,36 @@
+services:
+  jenkins:
+    build:
+      context: .
+      dockerfile: ./jenkins/Dockerfile
+    privileged: true
+    user: root
+    restart: always
+    ports:
+      - "9090:8080"
+      - "50000:50000"
+    dns:
+      - 8.8.8.8
+      - 4.4.4.4
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - jenkins_home:/var/jenkins_home
+
+  agent:
+    build: 
+      context: .
+      dockerfile: ./agent/Dockerfile
+    ports:
+      - "2200:22"
+    dns:
+      - 8.8.8.8
+      - 4.4.4.4
+    volumes:
+      - jenkins-ssh-agent:/home/jenkins/agent
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - JENKINS_AGENT_SSH_PUBKEY=${JENKINS_AGENT_SSH_PUBKEY}
+
+volumes:
+  jenkins_home:
+  jenkins-ssh-agent:
