@@ -3,22 +3,22 @@ const controller = require('./crops.controller');
 const authenticateNotIdParam = require('../farmers/farmers.controller').authenticateNotIdParam;
 
 
-// /** 
-//  * @swagger
-//  *   /crops:
-//  *     get:
-//  *       tags:
-//  *       - Crops
-//  *       description: Get all crops
-//  *       responses:
-//  *         200:
-//  *           description: Array with a list of crops
-//  *         400:
-//  *           description: Error 400 Bad Request
-//  *         500:
-//  *           description: Error 500 Internal Server Error
-//  */
-// router.get('/', controller.getAll);
+/** 
+ * @swagger
+ *   /crops:
+ *     get:
+ *       tags:
+ *       - Crops
+ *       description: Get all crops
+ *       responses:
+ *         200:
+ *           description: Array with a list of crops
+ *         400:
+ *           description: Error 400 Bad Request
+ *         500:
+ *           description: Error 500 Internal Server Error
+ */
+router.get('/', controller.getAll);
 
 /**
  * @swagger
@@ -62,27 +62,27 @@ router.get('/o', authenticateNotIdParam, controller.getAllO);
  */
 router.get('/w', authenticateNotIdParam, controller.getAllW);
 
-// /**
-//  * @swagger
-//  *      /crops/{id}:
-//  *              get:
-//  *                      tags:
-//  *                      - Crops
-//  *                      description: Get a crop by ID
-//  *                      parameters:
-//  *                              - in: path
-//  *                                name: id
-//  *                                required: true
-//  *                                description: The crop's unique ID
-//  *                      responses:
-//  *                              200:
-//  *                                      description: An object with a single crop's data
-//  *                              400:
-//  *                                      description: Error 400 Bad Request
-//  *                              500:
-//  *                                      description: Error 500 Internal Server Error
-//  */
-// router.get('/:id', controller.getOne);
+/**
+ * @swagger
+ *      /crops/{id}:
+ *              get:
+ *                      tags:
+ *                      - Crops
+ *                      description: Get a crop by ID
+ *                      parameters:
+ *                              - in: path
+ *                                name: id
+ *                                required: true
+ *                                description: The crop's unique ID
+ *                      responses:
+ *                              200:
+ *                                      description: An object with a single crop's data
+ *                              400:
+ *                                      description: Error 400 Bad Request
+ *                              500:
+ *                                      description: Error 500 Internal Server Error
+ */
+router.get('/:id', controller.getOne);
 
 /**
  * @swagger
@@ -141,26 +141,26 @@ router.post('/', authenticateNotIdParam, controller.create);
  */
 router.put('/w/:id', authenticateNotIdParam, controller.updateW);
 
-// /**
-//  * @swagger
-//  *   /crops/{id}:
-//  *     delete:
-//  *       tags:
-//  *       - Crops
-//  *       description: Delete a crop by ID
-//  *       parameters:
-//  *         - in: path
-//  *           name: id
-//  *           required: true
-//  *           description: The crop's unique ID
-//  *       responses:
-//  *         200:
-//  *           description: A object with removed crop
-//  *         400:
-//  *           description: Error 400 Bad Request
-//  *         500:
-//  *           description: Error 500 Internal Server Error
-//  */
-// router.delete('/:id', controller.delete);
+/**
+ * @swagger
+ *   /crops/{id}:
+ *     delete:
+ *       tags:
+ *       - Crops
+ *       description: Delete a crop by ID
+ *       parameters:
+ *         - in: path
+ *           name: id
+ *           required: true
+ *           description: The crop's unique ID
+ *       responses:
+ *         200:
+ *           description: A object with removed crop
+ *         400:
+ *           description: Error 400 Bad Request
+ *         500:
+ *           description: Error 500 Internal Server Error
+ */
+router.delete('/:id', controller.delete);
 
 module.exports = router;

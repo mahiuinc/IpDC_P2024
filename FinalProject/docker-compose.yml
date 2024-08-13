@@ -9,38 +9,54 @@
 version: '3'
 
 services:
-  mongo:
-    container_name: mongodb
-    image: mongo:4.2.0
-    environment:
-      - MONGO_INITDB_ROOT_USERNAME=${MONGO_ROOT_USERNAME}
-      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_PASSWORD}
-    ports: 
-      - '11000:27017'
-    volumes:
-      - db_data:/data/db
-      - db_data1:/data/configdb
-    networks:
-      - farm_network
+  # mongo:
+  #   container_name: mongodb
+  #   image: mongo:4.2.0
+  #   environment:
+  #     - MONGO_INITDB_ROOT_USERNAME=${MONGO_ROOT_USERNAME}
+  #     - MONGO_INITDB_ROOT_PASSWORD=${MONGO_PASSWORD}
+  #   ports: 
+  #     - '11000:27017'
+  #   volumes:
+  #     - db_data:/data/db
+  #     - db_data1:/data/configdb
+  #   networks:
+  #     - farm_network
 
   agricultorserver:
     container_name: agricultorserver
-    image: miguelhidalgou/agricultor-server:1
+    image: miguelhidalgou/agricultor-server:latest
     restart: always
     ports:
       - '${EXTERNAL_PORT}:${INTERNAL_PORT}'
     environment:
       - CLAVE_PRIVADA=${CLAVE_PRIVADA}
-      - MONGO_URL=mongodb://${MONGO_ROOT_USERNAME}:${MONGO_PASSWORD}@mongo
+      #- MONGO_URL=mongodb://${MONGO_ROOT_USERNAME}:${MONGO_PASSWORD}@${MONGO_HOST}
+      - MONGO_URL=mongodb+srv://Agricultor:DcycpnOrmJQXAyxE@cluster0.dejaiev.mongodb.net/
       - PORT=${INTERNAL_PORT}
-    links:
-      - mongo
+    # links:
+    #   - mongo
     networks:
       - farm_network
- 
+  
+  # grafana:
+  #   container_name: grafana
+  #   image: grafana/grafana-enterprise
+  #   restart: always
+  #   ports:
+  #     - 30000:3000
+  #   volumes:
+  #     - grafana-storage:/var/lib/grafana
+  #   links:
+  #     - mongo
+  #   networks:
+  #     - farm_network
+
+
 volumes: # Declaración de volumenes
-  db_data:
-  db_data1:
+#   db_data:
+#   db_data1:
+  grafana-storage:
 
 networks: # Creación de nuevas redes
   farm_network:

@@ -1,22 +1,22 @@
 const router = require('express').Router();
 const controller = require('./fields.controller');
 const authenticateNotIdParam = require('../farmers/farmers.controller').authenticateNotIdParam;
-// /**
-//  * @swagger
-//  *   /fields:
-//  *     get:
-//  *       tags:
-//  *       - Fields
-//  *       description: Get all fields
-//  *       responses:
-//  *         200:
-//  *           description: Array with a list of fields
-//  *         400:
-//  *           description: Error 400 Bad Request
-//  *         500:
-//  *           description: Error 500 Internal Server Error
-//  */
-// router.get('/', controller.getAll);
+/**
+ * @swagger
+ *   /fields:
+ *     get:
+ *       tags:
+ *       - Fields
+ *       description: Get all fields
+ *       responses:
+ *         200:
+ *           description: Array with a list of fields
+ *         400:
+ *           description: Error 400 Bad Request
+ *         500:
+ *           description: Error 500 Internal Server Error
+ */
+router.get('/', controller.getAll);
 
 /**
  * @swagger
@@ -62,27 +62,27 @@ router.get('/o', authenticateNotIdParam, controller.getAllO);
  */
 router.get('/w', authenticateNotIdParam, controller.getAllW);
 
-// /**
-//  * @swagger
-//  *      /fields/{id}:
-//  *              get:
-//  *                      tags:
-//  *                      - Fields
-//  *                      description: Get a field by ID
-//  *                      parameters:
-//  *                              - in: path
-//  *                                name: id
-//  *                                required: true
-//  *                                description: The field's unique ID
-//  *                      responses:
-//  *                              200:
-//  *                                      description: An object with a single field's data
-//  *                              400:
-//  *                                      description: Error 400 Bad Request
-//  *                              500:
-//  *                                      description: Error 500 Internal Server Error
-//  */
-// router.get('/:id', controller.getOne);
+/**
+ * @swagger
+ *      /fields/{id}:
+ *              get:
+ *                      tags:
+ *                      - Fields
+ *                      description: Get a field by ID
+ *                      parameters:
+ *                              - in: path
+ *                                name: id
+ *                                required: true
+ *                                description: The field's unique ID
+ *                      responses:
+ *                              200:
+ *                                      description: An object with a single field's data
+ *                              400:
+ *                                      description: Error 400 Bad Request
+ *                              500:
+ *                                      description: Error 500 Internal Server Error
+ */
+router.get('/:id', controller.getOne);
 
 /**
  * @swagger
@@ -111,48 +111,48 @@ router.get('/w', authenticateNotIdParam, controller.getAllW);
  */
 router.post('/', authenticateNotIdParam, controller.create);
 
-// /**
-//  * @swagger
-//  *   /fields/{id}:
-//  *     put:
-//  *       tags:
-//  *       - Fields
-//  *       description: Update a field by ID
-//  *       parameters:
-//  *         - in: path
-//  *           name: id
-//  *           required: true
-//  *           description: The field's unique ID
-//  *       responses:
-//  *         200:
-//  *           description: A object with updated field
-//  *         400:
-//  *           description: Error 400 Bad Request
-//  *         500:
-//  *           description: Error 500 Internal Server Error
-//  */
-// router.put('/:id', controller.update);
+/**
+ * @swagger
+ *   /fields/{id}:
+ *     put:
+ *       tags:
+ *       - Fields
+ *       description: Update a field by ID
+ *       parameters:
+ *         - in: path
+ *           name: id
+ *           required: true
+ *           description: The field's unique ID
+ *       responses:
+ *         200:
+ *           description: A object with updated field
+ *         400:
+ *           description: Error 400 Bad Request
+ *         500:
+ *           description: Error 500 Internal Server Error
+ */
+router.put('/:id', controller.update);
 
-// /**
-//  * @swagger
-//  *   /fields/{id}:
-//  *     delete:
-//  *       tags:
-//  *       - Fields
-//  *       description: Delete a field by ID
-//  *       parameters:
-//  *         - in: path
-//  *           name: id
-//  *           required: true
-//  *           description: The field's unique ID
-//  *       responses:
-//  *         200:
-//  *           description: A object with removed field
-//  *         400:
-//  *           description: Error 400 Bad Request
-//  *         500:
-//  *           description: Error 500 Internal Server Error
-//  */
-// router.delete('/:id', controller.delete);
+/**
+ * @swagger
+ *   /fields/{id}:
+ *     delete:
+ *       tags:
+ *       - Fields
+ *       description: Delete a field by ID
+ *       parameters:
+ *         - in: path
+ *           name: id
+ *           required: true
+ *           description: The field's unique ID
+ *       responses:
+ *         200:
+ *           description: A object with removed field
+ *         400:
+ *           description: Error 400 Bad Request
+ *         500:
+ *           description: Error 500 Internal Server Error
+ */
+router.delete('/:id', controller.delete);
 
 module.exports = router;

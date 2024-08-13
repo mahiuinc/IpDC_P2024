@@ -117,7 +117,8 @@ const Controller = {
                 if (farmer && farmer.password == password) {
                     if (farmer.token) {
                         res.status(200).send({
-                            "token": farmer.token
+                            "token": farmer.token,
+                            "id": farmer._id
                         });
                     } else {
                         const token = jwt.sign({
@@ -134,7 +135,8 @@ const Controller = {
                             if (result) {
                                 console.log(result);
                                 res.status(200).send({
-                                    "token": token
+                                    "token": token,
+                                    "id": farmer._id
                                 });
                             } else {
                                 res.send(500);
@@ -288,7 +290,7 @@ const Controller = {
                                 }
                             })
                         }
-                    } else{
+                    } else {
                         console.log('Incorrect google token, this farmer does not exist')
                         res.status(400).send('Incorrect google token, this farmer does not exist');
                     }

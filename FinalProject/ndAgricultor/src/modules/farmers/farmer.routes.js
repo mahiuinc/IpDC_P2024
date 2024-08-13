@@ -103,48 +103,48 @@ router.get('/:id', controller.authenticate, controller.getOne);
  */
 router.post('/', controller.create);
 
-// /**
-//  * @swagger
-//  *   /farmers/{id}:
-//  *     put:
-//  *       tags:
-//  *       - Farmers
-//  *       description: Update a farmer by ID
-//  *       parameters:
-//  *         - in: path
-//  *           name: id
-//  *           required: true
-//  *           description: The farmer's unique ID
-//  *       responses:
-//  *         200:
-//  *           description: A object with updated farmer
-//  *         400:
-//  *           description: Error 400 Bad Request
-//  *         500:
-//  *           description: Error 500 Internal Server Error
-//  */
-// router.put('/:id', controller.authenticate, controller.update);
+/**
+ * @swagger
+ *   /farmers/{id}:
+ *     put:
+ *       tags:
+ *       - Farmers
+ *       description: Update a farmer by ID
+ *       parameters:
+ *         - in: path
+ *           name: id
+ *           required: true
+ *           description: The farmer's unique ID
+ *       responses:
+ *         200:
+ *           description: A object with updated farmer
+ *         400:
+ *           description: Error 400 Bad Request
+ *         500:
+ *           description: Error 500 Internal Server Error
+ */
+router.put('/:id', controller.authenticate, controller.update);
 
-// /**
-//  * @swagger
-//  *   /farmers/{id}:
-//  *     delete:
-//  *       tags:
-//  *       - Farmers
-//  *       description: Delete a farmer by ID
-//  *       parameters:
-//  *         - in: path
-//  *           name: id
-//  *           required: true
-//  *           description: The farmer's unique ID
-//  *       responses:
-//  *         200:
-//  *           description: A object with removed farmer
-//  *         400:
-//  *           description: Error 400 Bad Request
-//  *         500:
-//  *           description: Error 500 Internal Server Error
-//  */
-// router.delete('/:id', controller.authenticate, controller.delete);
+/**
+ * @swagger
+ *   /farmers/{id}:
+ *     delete:
+ *       tags:
+ *       - Farmers
+ *       description: Delete a farmer by ID
+ *       parameters:
+ *         - in: path
+ *           name: id
+ *           required: true
+ *           description: The farmer's unique ID
+ *       responses:
+ *         200:
+ *           description: A object with removed farmer
+ *         400:
+ *           description: Error 400 Bad Request
+ *         500:
+ *           description: Error 500 Internal Server Error
+ */
+router.delete('/:id', controller.authenticate, controller.delete);
 
 module.exports = router;

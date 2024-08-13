@@ -2,22 +2,22 @@ const router = require('express').Router();
 const controller = require('./worksDone.controller');
 const authenticateNotIdParam = require('../farmers/farmers.controller').authenticateNotIdParam;
 
-// /**
-//  * @swagger
-//  *   /worksDone:
-//  *     get:
-//  *       tags:
-//  *       - WorksDone
-//  *       description: Get all worksDone
-//  *       responses:
-//  *         200:
-//  *           description: Array with a list of worksDone
-//  *         400:
-//  *           description: Error 400 Bad Request
-//  *         500:
-//  *           description: Error 500 Internal Server Error
-//  */
-// router.get('/', controller.getAll);
+/**
+ * @swagger
+ *   /worksDone:
+ *     get:
+ *       tags:
+ *       - WorksDone
+ *       description: Get all worksDone
+ *       responses:
+ *         200:
+ *           description: Array with a list of worksDone
+ *         400:
+ *           description: Error 400 Bad Request
+ *         500:
+ *           description: Error 500 Internal Server Error
+ */
+router.get('/', controller.getAll);
 
 /**
  * @swagger
@@ -61,27 +61,27 @@ const authenticateNotIdParam = require('../farmers/farmers.controller').authenti
  */
 router.get('/w', authenticateNotIdParam, controller.getAllW);
 
-// /**
-//  * @swagger
-//  *      /worksDone/{id}:
-//  *              get:
-//  *                      tags:
-//  *                      - WorksDone
-//  *                      description: Get a workDone by ID
-//  *                      parameters:
-//  *                              - in: path
-//  *                                name: id
-//  *                                required: true
-//  *                                description: The workDone's unique ID
-//  *                      responses:
-//  *                              200:
-//  *                                      description: An object with a single workDone's data
-//  *                              400:
-//  *                                      description: Error 400 Bad Request
-//  *                              500:
-//  *                                      description: Error 500 Internal Server Error
-//  */
-// router.get('/:id', controller.getOne);
+/**
+ * @swagger
+ *      /worksDone/{id}:
+ *              get:
+ *                      tags:
+ *                      - WorksDone
+ *                      description: Get a workDone by ID
+ *                      parameters:
+ *                              - in: path
+ *                                name: id
+ *                                required: true
+ *                                description: The workDone's unique ID
+ *                      responses:
+ *                              200:
+ *                                      description: An object with a single workDone's data
+ *                              400:
+ *                                      description: Error 400 Bad Request
+ *                              500:
+ *                                      description: Error 500 Internal Server Error
+ */
+router.get('/:id', controller.getOne);
 
 /**
  * @swagger
@@ -113,48 +113,48 @@ router.get('/w', authenticateNotIdParam, controller.getAllW);
  */
 router.post('/', authenticateNotIdParam, controller.create);
 
-// /**
-//  * @swagger
-//  *   /worksDone/{id}:
-//  *     put:
-//  *       tags:
-//  *       - WorksDone
-//  *       description: Update a workDone by ID
-//  *       parameters:
-//  *         - in: path
-//  *           name: id
-//  *           required: true
-//  *           description: The workDone's unique ID
-//  *       responses:
-//  *         200:
-//  *           description: A object with updated workDone
-//  *         400:
-//  *           description: Error 400 Bad Request
-//  *         500:
-//  *           description: Error 500 Internal Server Error
-//  */
-// router.put('/:id', controller.update);
+/**
+ * @swagger
+ *   /worksDone/{id}:
+ *     put:
+ *       tags:
+ *       - WorksDone
+ *       description: Update a workDone by ID
+ *       parameters:
+ *         - in: path
+ *           name: id
+ *           required: true
+ *           description: The workDone's unique ID
+ *       responses:
+ *         200:
+ *           description: A object with updated workDone
+ *         400:
+ *           description: Error 400 Bad Request
+ *         500:
+ *           description: Error 500 Internal Server Error
+ */
+router.put('/:id', controller.update);
 
-// /**
-//  * @swagger
-//  *   /worksDone/{id}:
-//  *     delete:
-//  *       tags:
-//  *       - WorksDone
-//  *       description: Delete a workDone by ID
-//  *       parameters:
-//  *         - in: path
-//  *           name: id
-//  *           required: true
-//  *           description: The workDone's unique ID
-//  *       responses:
-//  *         200:
-//  *           description: A object with removed workDone
-//  *         400:
-//  *           description: Error 400 Bad Request
-//  *         500:
-//  *           description: Error 500 Internal Server Error
-//  */
-// router.delete('/:id', controller.delete);
+/**
+ * @swagger
+ *   /worksDone/{id}:
+ *     delete:
+ *       tags:
+ *       - WorksDone
+ *       description: Delete a workDone by ID
+ *       parameters:
+ *         - in: path
+ *           name: id
+ *           required: true
+ *           description: The workDone's unique ID
+ *       responses:
+ *         200:
+ *           description: A object with removed workDone
+ *         400:
+ *           description: Error 400 Bad Request
+ *         500:
+ *           description: Error 500 Internal Server Error
+ */
+router.delete('/:id', controller.delete);
 
 module.exports = router;
